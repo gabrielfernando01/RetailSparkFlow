@@ -31,5 +31,56 @@ Ubicación del dataset en Kaggle: <code>https://www.kaggle.com/datasets/lakshmi2
 
 ## 📥 2. Descargar y colocar el dataset.
 
-- Accede al enlace de Kaggle y descarga online_retail_II.csv.
-- Mueve el CSV a data/online_retail.csv.
+- Accede al enlace de Kaggle y descarga <code>online_retail_II.csv</code>.
+- Mueve el CSV a <code>data/online_retail.csv</code>.
+
+**Nota**: El fichero descargara un .zip en tu equipo, al extraerlo obtendrás un <code>.xlsx</code> con 2 hojas, para convertirlo a dos ficheros <code>.csv</code> puedes hacerlo manualmente o en mi caso con pandas.
+
+![](https://raw.githubusercontent.com/gabrielfernando01/RetailSparkFlow/main/image/pandas.png)
+
+## 🔧 3. Configurar almacenamiento (S3 / MinIO).
+
+### 🐳 Paso 1: Instalar Docker en Kubuntu 24.04
+
+Abre tu terminal y ejecuta lo siguiente:
+
+bash
+```
+sudo apt update
+sudo apt install apt-transport-https ca-certificates curl software-properties-common gnupg lsb-release -y
+```
+
+**Añadir la clave GPG oficial de Docker**:
+
+bash
+```
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/docker.gpg
+```
+
+**Añadir el repositorio oficial**:
+
+bash
+```
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
+
+**Instalar Docker Engine**:
+
+bash
+```
+sudo apt update
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+```
+
+**Verificar que Docker funciona**:
+
+bash
+```
+sudo docker version
+```
+
+**🔐 (Opcional pero útil) Usar Docker sin sudo**:
+
+```
+sudo usermod -aG docker $USER
+```
